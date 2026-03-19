@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nova Digital Agency – Impulsamos tu negocio en el mundo digital</title>
+  <meta name="description" content="Nova Digital Agency: agencia especializada en marketing digital, diseño web y estrategias de crecimiento para negocios." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* ======================================
+       CSS VARIABLES & RESET
+    ====================================== */
+    :root {
+      --navy:        #060b18;
+      --navy-mid:    #0d1526;
+      --navy-light:  #12203a;
+      --card-bg:     #0f1a2e;
+      --purple:      #7c3aed;
+      --purple-light:#a855f7;
+      --blue:        #3b82f6;
+      --blue-glow:   #60a5fa;
+      --accent:      #c084fc;
+      --white:       #f8faff;
+      --grey:        #94a3b8;
+      --border:      rgba(124, 58, 237, 0.25);
+      --glow-purple: 0 0 40px rgba(124, 58, 237, 0.4);
+      --glow-blue:   0 0 40px rgba(59, 130, 246, 0.3);
+      --radius:      16px;
+      --radius-sm:   10px;
+      --transition:  0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* ======================================
+       TYPOGRAPHY HELPERS
+    ====================================== */
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--purple-light);
+      background: rgba(124,58,237,.12);
+      border: 1px solid var(--border);
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+    h1,h2,h3,h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      line-height: 1.25;
+      font-weight: 800;
+    }
+    h2.section-title {
+      font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, var(--blue-glow) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: inline-block;
+      padding-bottom: 6px;
+      line-height: 1.35;
+    }
+    .sub-text { color: var(--grey); font-size: 1.05rem; max-width: 580px; }
+
+    /* ======================================
+       SECTION WRAPPER
+    ====================================== */
+    section { position: relative; overflow: hidden; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section-pad { padding: 80px 0; }
+
+    /* ======================================
+       BACKGROUND GRID OVERLAY
+    ====================================== */
+    .grid-overlay {
+      position: absolute; inset: 0; pointer-events: none; z-index: 0;
+      background-image:
+        linear-gradient(rgba(59,130,246,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59,130,246,.05) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* ======================================
+       NOISE TEXTURE OVERLAY
+    ====================================== */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: .4;
+    }
+
+    /* ======================================
+       GLOW ORBS
+    ====================================== */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb-purple { background: rgba(124,58,237,.35); }
+    .orb-blue   { background: rgba(59,130,246,.25); }
+
+    /* ======================================
+       NAVBAR
+    ====================================== */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      transition: background var(--transition), box-shadow var(--transition);
+      padding: 0 24px;
+    }
+    #navbar.scrolled {
+      background: rgba(6,11,24,.92);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 1px 0 var(--border);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px;
+    }
+    .nav-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.4rem; font-weight: 800;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-logo .logo-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .9rem;
+    }
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+    .nav-links a {
+      font-size: .9rem; font-weight: 500; color: var(--grey);
+      padding: 8px 14px; border-radius: 8px;
+      transition: color var(--transition), background var(--transition);
+    }
+    .nav-links a:hover { color: var(--white); background: rgba(255,255,255,.06); }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--purple), var(--blue)) !important;
+      color: var(--white) !important;
+      padding: 10px 22px !important;
+      border-radius: 999px !important;
+      font-weight: 600 !important;
+      box-shadow: var(--glow-purple);
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(124,58,237,.6) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: var(--transition); }
+    .nav-mobile { display: none; }
+
+    /* ======================================
+       HERO
+    ====================================== */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      background: var(--navy);
+      padding-top: 72px;
+    }
+    .hero-orb1 { width: 700px; height: 700px; top: -200px; right: -150px; }
+    .hero-orb2 { width: 500px; height: 500px; bottom: -100px; left: -100px; }
+    .hero-content {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: center;
+    }
+    .hero-left { }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 8px;
+      font-size: .8rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--blue-glow); margin-bottom: 24px;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block;
+      width: 28px; height: 2px;
+      background: linear-gradient(90deg, var(--purple), var(--blue));
+    }
+    .hero-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+      margin-bottom: 24px;
+    }
+    .hero-sub {
+      font-size: 1.15rem; color: var(--grey);
+      margin-bottom: 40px; max-width: 480px;
+    }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      color: var(--white); font-weight: 700; font-size: 1rem;
+      padding: 14px 30px; border-radius: 999px;
+      box-shadow: var(--glow-purple);
+      transition: transform var(--transition), box-shadow var(--transition);
+      border: none; cursor: pointer;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 55px rgba(124,58,237,.65); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent;
+      color: var(--white); font-weight: 600; font-size: 1rem;
+      padding: 13px 28px; border-radius: 999px;
+      border: 1px solid var(--border);
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .btn-outline:hover { background: rgba(124,58,237,.12); border-color: var(--purple); }
+    .hero-stats {
+      display: flex; gap: 32px; margin-top: 48px; flex-wrap: wrap;
+    }
+    .stat { }
+    .stat-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2.2rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--blue-glow), var(--accent));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      line-height: 1.2;
+      padding-bottom: 3px;
+      display: inline-block;
+    }
+    .stat-label { font-size: .85rem; color: var(--grey); font-weight: 500; }
+
+    /* Hero Visual */
+    .hero-right { position: relative; }
+    .hero-visual {
+      position: relative; border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .hero-mockup {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 0 80px rgba(124,58,237,.2);
+    }
+    .mockup-bar {
+      display: flex; gap: 8px; margin-bottom: 20px;
+    }
+    .mockup-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+    }
+    .mockup-dot:nth-child(1) { background: #ff5f57; }
+    .mockup-dot:nth-child(2) { background: #ffbd2e; }
+    .mockup-dot:nth-child(3) { background: #28c840; }
+    .mockup-chart {
+      background: var(--navy-mid);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .chart-label { font-size: .75rem; color: var(--grey); margin-bottom: 12px; font-family: 'Syne', sans-serif; letter-spacing: .05em; }
+    .chart-bars {
+      display: flex; align-items: flex-end; gap: 8px; height: 80px;
+    }
+    .bar-item {
+      flex: 1; border-radius: 4px 4px 0 0;
+      animation: growBar 1.5s ease forwards;
+      background: linear-gradient(to top, var(--purple), var(--blue-glow));
+      opacity: .8;
+    }
+    @keyframes growBar {
+      from { transform: scaleY(0); transform-origin: bottom; }
+      to   { transform: scaleY(1); }
+    }
+    .bar-item:nth-child(1) { height: 45%; animation-delay: .1s; }
+    .bar-item:nth-child(2) { height: 70%; animation-delay: .2s; }
+    .bar-item:nth-child(3) { height: 55%; animation-delay: .3s; }
+    .bar-item:nth-child(4) { height: 90%; animation-delay: .4s; background: linear-gradient(to top, var(--accent), var(--blue-glow)); }
+    .bar-item:nth-child(5) { height: 75%; animation-delay: .5s; }
+    .bar-item:nth-child(6) { height: 85%; animation-delay: .6s; }
+    .mockup-metrics {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    }
+    .metric-card {
+      background: var(--navy-mid);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,.04);
+    }
+    .metric-icon { font-size: 1.2rem; margin-bottom: 6px; }
+    .metric-num { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.4rem; font-weight: 700; line-height: 1.2; }
+    .metric-num.green { color: #34d399; }
+    .metric-num.blue  { color: var(--blue-glow); }
+    .metric-lbl { font-size: .72rem; color: var(--grey); }
+    .floating-badge {
+      position: absolute;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 16px;
+      display: flex; align-items: center; gap: 10px;
+      font-size: .82rem; font-weight: 600;
+      box-shadow: 0 8px 32px rgba(0,0,0,.4);
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+    .badge1 { top: -20px; left: -30px; animation-delay: 0s; }
+    .badge2 { bottom: 20px; right: -25px; animation-delay: 1.5s; }
+    .badge-dot { width: 8px; height: 8px; border-radius: 50%; background: #34d399; box-shadow: 0 0 8px #34d399; }
+
+    /* ======================================
+       ABOUT
+    ====================================== */
+    #about { background: var(--navy-mid); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .about-image-wrap { position: relative; }
+    .about-img-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+      text-align: center;
+      position: relative;
+      box-shadow: var(--glow-purple);
+    }
+    .about-icon-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px; margin-bottom: 28px;
+    }
+    .about-icon-card {
+      background: var(--navy-mid);
+      border-radius: 12px; padding: 20px;
+      border: 1px solid rgba(255,255,255,.06);
+      font-size: 1.8rem;
+      transition: transform var(--transition), border-color var(--transition);
+    }
+    .about-icon-card:hover { transform: translateY(-4px); border-color: var(--purple); }
+    .about-icon-card p { font-size: .78rem; color: var(--grey); margin-top: 6px; font-weight: 500; }
+    .about-years {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 3.5rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--blue-glow), var(--accent));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      display: inline-block; padding-bottom: 4px; line-height: 1.2;
+    }
+    .about-years-label { font-size: .9rem; color: var(--grey); font-weight: 500; }
+    .about-badge-float {
+      position: absolute; bottom: -20px; right: -20px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      border-radius: 14px; padding: 16px 22px;
+      box-shadow: var(--glow-blue);
+    }
+    .about-badge-float .num { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; }
+    .about-badge-float .lbl { font-size: .75rem; opacity: .8; }
+    .about-right {}
+    .about-features { margin-top: 36px; display: flex; flex-direction: column; gap: 16px; }
+    .feature-item {
+      display: flex; gap: 16px; align-items: flex-start;
+      background: var(--card-bg); border-radius: var(--radius-sm);
+      padding: 18px; border: 1px solid rgba(255,255,255,.05);
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .feature-item:hover { border-color: var(--purple); transform: translateX(6px); }
+    .feature-icon {
+      width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+      background: rgba(124,58,237,.18);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; color: var(--purple-light);
+    }
+    .feature-text h4 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+    .feature-text p { font-size: .88rem; color: var(--grey); }
+
+    /* ======================================
+       SERVICES
+    ====================================== */
+    #services { background: var(--navy); }
+    .services-header {
+      text-align: center; margin-bottom: 48px;
+      position: relative; z-index: 1;
+    }
+    .services-header .sub-text { margin: 0 auto; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      position: relative; z-index: 1;
+    }
+    .service-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--purple), var(--blue));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform var(--transition);
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--purple);
+      box-shadow: 0 16px 40px rgba(124,58,237,.18);
+    }
+    .service-card.featured {
+      background: linear-gradient(145deg, rgba(124,58,237,.15), rgba(59,130,246,.08));
+      border-color: var(--purple);
+      box-shadow: 0 0 28px rgba(124,58,237,.25);
+    }
+    .service-card.featured::before { transform: scaleX(1); }
+    .service-icon-wrap {
+      width: 44px; height: 44px; border-radius: 11px;
+      background: rgba(124,58,237,.18);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem; color: var(--purple-light);
+      margin-bottom: 14px;
+      transition: background var(--transition);
+    }
+    .service-card:hover .service-icon-wrap { background: rgba(124,58,237,.32); }
+    .service-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
+    .service-card p  { font-size: .83rem; color: var(--grey); line-height: 1.6; margin-bottom: 14px; }
+    .service-tag {
+      display: inline-block;
+      background: rgba(59,130,246,.1); color: var(--blue-glow);
+      font-size: .68rem; font-weight: 600; letter-spacing: .06em;
+      padding: 3px 10px; border-radius: 999px;
+      border: 1px solid rgba(59,130,246,.2);
+    }
+    .featured-badge {
+      position: absolute; top: 14px; right: 14px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      padding: 3px 8px; border-radius: 999px;
+    }
+
+    /* ======================================
+       PORTFOLIO
+    ====================================== */
+    #portfolio { background: var(--navy-mid); }
+    .portfolio-header {
+      text-align: center; margin-bottom: 36px;
+      position: relative; z-index: 1;
+    }
+    .portfolio-filter {
+      display: flex; justify-content: center; gap: 8px;
+      margin-bottom: 32px; flex-wrap: wrap;
+      position: relative; z-index: 1;
+    }
+    .filter-btn {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--grey); font-family: 'DM Sans', sans-serif;
+      font-size: .82rem; font-weight: 500;
+      padding: 7px 16px; border-radius: 999px;
+      cursor: pointer; transition: all var(--transition);
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      color: var(--white); border-color: transparent;
+    }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .portfolio-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.05);
+      background: var(--card-bg);
+      position: relative;
+      transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.35s ease;
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      pointer-events: auto;
+    }
+    .portfolio-card:hover {
+      transform: translateY(-5px) scale(1) !important;
+      box-shadow: 0 18px 48px rgba(0,0,0,.4);
+    }
+    .portfolio-card.hidden {
+      opacity: 0;
+      transform: scale(0.88) !important;
+      pointer-events: none;
+    }
+    .portfolio-card.hidden * { visibility: hidden; }
+    .portfolio-thumb {
+      height: 160px; position: relative; overflow: hidden;
+    }
+    .portfolio-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(124,58,237,.85), rgba(59,130,246,.7));
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity var(--transition);
+    }
+    .portfolio-card:hover .portfolio-overlay { opacity: 1; }
+    .p-overlay-icon { font-size: 1.8rem; color: var(--white); }
+    .p-visual {
+      height: 100%; display: flex; align-items: center; justify-content: center;
+      font-size: 2.8rem;
+    }
+    .p-body { padding: 14px 16px 16px; }
+    .p-cat { font-size: .68rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--purple-light); margin-bottom: 5px; }
+    .p-body h4 { font-size: .92rem; font-weight: 700; margin-bottom: 5px; line-height: 1.3; }
+    .p-body p  { font-size: .8rem; color: var(--grey); line-height: 1.55; }
+
+    /* ======================================
+       TESTIMONIALS
+    ====================================== */
+    #testimonials { background: var(--navy); }
+    .testimonials-header {
+      text-align: center; margin-bottom: 48px;
+      position: relative; z-index: 1;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      position: relative; z-index: 1;
+    }
+    .testimonial-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      transition: transform var(--transition), border-color var(--transition);
+      position: relative;
+    }
+    .testimonial-card:hover { transform: translateY(-4px); border-color: var(--purple); }
+    .quote-icon {
+      font-size: 2rem; color: var(--purple-light);
+      opacity: .4; margin-bottom: 10px; font-family: Georgia, serif;
+      line-height: 1;
+    }
+    .testimonial-text {
+      font-size: .85rem; color: var(--grey);
+      margin-bottom: 18px; font-style: italic;
+      line-height: 1.65;
+    }
+    .testimonial-author { display: flex; align-items: center; gap: 10px; }
+    .author-avatar {
+      width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: .85rem; font-weight: 700;
+    }
+    .author-name { font-weight: 700; font-size: .88rem; }
+    .author-role { font-size: .75rem; color: var(--grey); }
+    .stars { color: #fbbf24; font-size: .78rem; margin-bottom: 8px; letter-spacing: 2px; }
+
+    /* ======================================
+       CONTACT
+    ====================================== */
+    #contact { background: var(--navy-mid); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.2fr;
+      gap: 64px; align-items: start;
+      position: relative; z-index: 1;
+    }
+    .contact-info h2 { margin-bottom: 16px; }
+    .contact-info .sub-text { margin-bottom: 40px; }
+    .contact-items { display: flex; flex-direction: column; gap: 20px; }
+    .contact-item {
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .contact-icon {
+      width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
+      background: rgba(124,58,237,.18);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; color: var(--purple-light);
+    }
+    .contact-item-text h4 { font-size: .95rem; font-weight: 700; margin-bottom: 4px; }
+    .contact-item-text p, .contact-item-text a { font-size: .9rem; color: var(--grey); }
+    .contact-item-text a:hover { color: var(--purple-light); }
+    .social-links { display: flex; gap: 12px; margin-top: 36px; }
+    .social-link {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; color: var(--grey);
+      transition: all var(--transition);
+    }
+    .social-link:hover {
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      border-color: transparent; color: var(--white);
+      box-shadow: var(--glow-purple);
+    }
+    /* Contact Form */
+    .contact-form {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+      box-shadow: var(--glow-purple);
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-group label {
+      display: block; font-size: .85rem; font-weight: 600;
+      margin-bottom: 8px; color: var(--white);
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%; padding: 13px 16px;
+      background: var(--navy-mid);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius-sm);
+      color: var(--white); font-family: 'DM Sans', sans-serif; font-size: .95rem;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--purple);
+      box-shadow: 0 0 0 3px rgba(124,58,237,.15);
+    }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-group select option { background: var(--navy-mid); }
+    .form-submit {
+      width: 100%; padding: 15px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      color: var(--white); font-family: 'Syne', sans-serif;
+      font-size: 1rem; font-weight: 700;
+      border: none; border-radius: 999px; cursor: pointer;
+      box-shadow: var(--glow-purple);
+      transition: transform var(--transition), box-shadow var(--transition);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(124,58,237,.65); }
+
+    /* ======================================
+       MAP
+    ====================================== */
+    #map-section { background: var(--navy); }
+    .map-header {
+      text-align: center; margin-bottom: 48px;
+      position: relative; z-index: 1;
+    }
+    .map-container {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--glow-blue);
+      position: relative; z-index: 1;
+    }
+    .map-container iframe { display: block; width: 100%; height: 420px; border: none; }
+
+    /* ======================================
+       FOOTER
+    ====================================== */
+    footer {
+      background: var(--navy-mid);
+      border-top: 1px solid var(--border);
+      padding: 64px 0 32px;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 48px; margin-bottom: 48px;
+    }
+    .footer-brand .nav-logo { margin-bottom: 16px; }
+    .footer-brand p { font-size: .9rem; color: var(--grey); max-width: 260px; line-height: 1.7; }
+    .footer-col h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: .9rem; font-weight: 700;
+      margin-bottom: 20px; color: var(--white);
+    }
+    .footer-col ul li a {
+      font-size: .88rem; color: var(--grey); display: block;
+      padding: 5px 0; transition: color var(--transition);
+    }
+    .footer-col ul li a:hover { color: var(--purple-light); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 32px; border-top: 1px solid rgba(255,255,255,.06);
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-bottom p { font-size: .85rem; color: var(--grey); }
+    .footer-bottom a { color: var(--purple-light); }
+
+    /* ======================================
+       WHATSAPP FLOAT
+    ====================================== */
+    .wa-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .wa-tooltip {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px; padding: 8px 14px;
+      font-size: .82rem; font-weight: 600; white-space: nowrap;
+      box-shadow: 0 8px 24px rgba(0,0,0,.3);
+      animation: fadeInLeft .5s ease forwards;
+    }
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(10px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .wa-btn {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: #25d366;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; color: white;
+      box-shadow: 0 0 24px rgba(37,211,102,.45);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .wa-btn:hover { transform: scale(1.1); box-shadow: 0 0 40px rgba(37,211,102,.65); }
+    .wa-pulse {
+      position: absolute; top: 0; right: 0;
+      width: 60px; height: 60px; border-radius: 50%;
+      background: rgba(37,211,102,.4);
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse {
+      0%   { transform: scale(1); opacity: .8; }
+      100% { transform: scale(1.8); opacity: 0; }
+    }
+
+    /* ======================================
+       SCROLL REVEAL
+    ====================================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ======================================
+       RESPONSIVE
+    ====================================== */
+
+    /* Large tablets – keep 3 cols but tighter */
+    @media (max-width: 1100px) {
+      .services-grid     { gap: 12px; }
+      .portfolio-grid    { gap: 12px; }
+      .testimonials-grid { gap: 12px; }
+      .service-card      { padding: 20px 16px; }
+      .testimonial-card  { padding: 18px 15px; }
+    }
+
+    /* Tablets – 2 columns */
+    @media (max-width: 900px) {
+      .services-grid      { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .portfolio-grid     { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .testimonials-grid  { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .footer-grid        { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* Mobile – 1 column */
+    @media (max-width: 768px) {
+      .section-pad { padding: 64px 0; }
+      .hero-content  { grid-template-columns: 1fr; }
+      .hero-right    { display: none; }
+      .about-grid    { grid-template-columns: 1fr; }
+      .about-image-wrap { display: none; }
+      .contact-grid  { grid-template-columns: 1fr; }
+      .services-grid     { grid-template-columns: 1fr; gap: 12px; }
+      .portfolio-grid    { grid-template-columns: 1fr; gap: 12px; }
+      .testimonials-grid { grid-template-columns: 1fr; gap: 12px; }
+      .form-row      { grid-template-columns: 1fr; }
+      .footer-grid   { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .nav-links     { display: none; }
+      .hamburger     { display: flex; }
+      .nav-mobile {
+        display: none; position: fixed; top: 72px; left: 0; right: 0;
+        background: rgba(6,11,24,.98); backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+        padding: 20px 24px; flex-direction: column; gap: 8px;
+        z-index: 999;
+      }
+      .nav-mobile.open { display: flex; }
+      .nav-mobile a {
+        font-size: 1rem; font-weight: 500; color: var(--grey);
+        padding: 12px 16px; border-radius: 8px;
+        transition: all var(--transition);
+      }
+      .nav-mobile a:hover { background: rgba(124,58,237,.12); color: var(--white); }
+      .hero-title { font-size: 2.2rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-stats { gap: 20px; }
+      .hero-btns  { flex-direction: column; }
+      .btn-primary, .btn-outline { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVBAR
+  ============================================================ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">
+        <div class="logo-icon"><i class="fa-solid fa-bolt"></i></div>
+        Nova Digital
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about">Nosotros</a></li>
+        <li><a href="#services">Servicios</a></li>
+        <li><a href="#portfolio">Portafolio</a></li>
+        <li><a href="#testimonials">Testimonios</a></li>
+        <li><a href="#contact">Contacto</a></li>
+        <li>
+          <a href="https://wa.me/5255782145632" target="_blank" class="nav-cta">
+            <i class="fa-brands fa-whatsapp"></i> Contactar
+          </a>
+        </li>
+      </ul>
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <div class="nav-mobile" id="mobileMenu">
+      <a href="#about"        onclick="toggleMenu()">Nosotros</a>
+      <a href="#services"     onclick="toggleMenu()">Servicios</a>
+      <a href="#portfolio"    onclick="toggleMenu()">Portafolio</a>
+      <a href="#testimonials" onclick="toggleMenu()">Testimonios</a>
+      <a href="#contact"      onclick="toggleMenu()">Contacto</a>
+      <a href="https://wa.me/5255782145632" target="_blank" style="color:var(--purple-light)">
+        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+      </a>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section id="hero">
+    <div class="grid-overlay"></div>
+    <div class="orb orb-purple hero-orb1" style="width:700px;height:700px;top:-200px;right:-150px;"></div>
+    <div class="orb orb-blue   hero-orb2" style="width:500px;height:500px;bottom:-100px;left:-100px;"></div>
+
+    <div class="container">
+      <div class="hero-content">
+        <!-- Left -->
+        <div class="hero-left reveal">
+          <div class="hero-eyebrow">Agencia de Marketing Digital</div>
+          <h1 class="hero-title">
+            Impulsamos tu <span class="gradient-text">negocio</span> en el mundo digital
+          </h1>
+          <p class="hero-sub">
+            Diseño web, publicidad digital y estrategias de marketing que convierten visitantes en clientes reales para tu negocio.
+          </p>
+          <div class="hero-btns">
+            <a href="https://wa.me/5255782145632" target="_blank" class="btn-primary">
+              <i class="fa-brands fa-whatsapp"></i> Solicitar Asesoría
+            </a>
+            <a href="#services" class="btn-outline">
+              Ver Servicios <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat">
+              <div class="stat-num">+150</div>
+              <div class="stat-label">Proyectos Completados</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">98%</div>
+              <div class="stat-label">Clientes Satisfechos</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">5+</div>
+              <div class="stat-label">Años de Experiencia</div>
+            </div>
+          </div>
+        </div>
+        <!-- Right Mockup -->
+        <div class="hero-right reveal" style="transition-delay:.2s">
+          <div class="hero-visual">
+            <div class="floating-badge badge1">
+              <div class="badge-dot"></div>
+              <span>Campaña activa</span>
+            </div>
+            <div class="hero-mockup">
+              <div class="mockup-bar">
+                <div class="mockup-dot"></div>
+                <div class="mockup-dot"></div>
+                <div class="mockup-dot"></div>
+              </div>
+              <div class="mockup-chart">
+                <div class="chart-label">Crecimiento de Tráfico Web</div>
+                <div class="chart-bars">
+                  <div class="bar-item"></div>
+                  <div class="bar-item"></div>
+                  <div class="bar-item"></div>
+                  <div class="bar-item"></div>
+                  <div class="bar-item"></div>
+                  <div class="bar-item"></div>
+                </div>
+              </div>
+              <div class="mockup-metrics">
+                <div class="metric-card">
+                  <div class="metric-icon">📈</div>
+                  <div class="metric-num green">+247%</div>
+                  <div class="metric-lbl">Conversiones</div>
+                </div>
+                <div class="metric-card">
+                  <div class="metric-icon">👥</div>
+                  <div class="metric-num blue">18.4K</div>
+                  <div class="metric-lbl">Alcance mensual</div>
+                </div>
+              </div>
+            </div>
+            <div class="floating-badge badge2">
+              <i class="fa-solid fa-star" style="color:#fbbf24"></i>
+              <span>ROI Garantizado</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ABOUT
+  ============================================================ -->
+  <section id="about" class="section-pad">
+    <div class="grid-overlay"></div>
+    <div class="orb orb-purple" style="width:600px;height:600px;top:50%;left:-200px;transform:translateY(-50%);"></div>
+
+    <div class="container">
+      <div class="about-grid">
+        <!-- Image / Visual Side -->
+        <div class="about-image-wrap reveal">
+          <div class="about-img-box">
+            <div class="about-icon-grid">
+              <div class="about-icon-card">
+                🎯 <p>Estrategia</p>
+              </div>
+              <div class="about-icon-card">
+                🚀 <p>Crecimiento</p>
+              </div>
+              <div class="about-icon-card">
+                💡 <p>Innovación</p>
+              </div>
+              <div class="about-icon-card">
+                📊 <p>Resultados</p>
+              </div>
+            </div>
+            <div class="about-years">5+</div>
+            <div class="about-years-label">Años transformando negocios digitales</div>
+            <div class="about-badge-float">
+              <div class="num">150+</div>
+              <div class="lbl">Proyectos exitosos</div>
+            </div>
+          </div>
+        </div>
+        <!-- Text Side -->
+        <div class="about-right reveal" style="transition-delay:.15s">
+          <span class="section-tag"><i class="fa-solid fa-circle-info"></i> Sobre Nosotros</span>
+          <h2 class="section-title">La agencia que <span class="gradient-text">transforma</span> negocios</h2>
+          <p class="sub-text" style="margin-top:16px">
+            Nova Digital Agency nació con la misión de llevar negocios al siguiente nivel en el mundo digital. Somos un equipo apasionado de especialistas en marketing, diseño y tecnología que trabajan cada día para que nuestros clientes brillen en internet.
+          </p>
+          <div class="about-features">
+            <div class="feature-item">
+              <div class="feature-icon"><i class="fa-solid fa-bullseye"></i></div>
+              <div class="feature-text">
+                <h4>Estrategias a medida</h4>
+                <p>Cada negocio es único. Diseñamos estrategias personalizadas que se adaptan a tus objetivos y tu industria.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon"><i class="fa-solid fa-chart-line"></i></div>
+              <div class="feature-text">
+                <h4>Resultados medibles</h4>
+                <p>Trabajamos con KPIs claros y reportes transparentes. Sabes exactamente qué está pasando con tu inversión.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon"><i class="fa-solid fa-headset"></i></div>
+              <div class="feature-text">
+                <h4>Acompañamiento continuo</h4>
+                <p>No desaparecemos después de entregar. Somos tu socio digital a largo plazo con soporte dedicado.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SERVICES
+  ============================================================ -->
+  <section id="services" class="section-pad">
+    <div class="grid-overlay"></div>
+    <div class="orb orb-blue" style="width:500px;height:500px;top:0;right:-100px;"></div>
+
+    <div class="container">
+      <div class="services-header reveal">
+        <span class="section-tag"><i class="fa-solid fa-bolt"></i> Servicios</span>
+        <h2 class="section-title">Todo lo que necesitas <span class="gradient-text">en un solo lugar</span></h2>
+        <p class="sub-text" style="margin-top:16px">
+          Ofrecemos soluciones integrales de marketing digital para que tu negocio crezca y destaque en internet.
+        </p>
+      </div>
+      <div class="services-grid">
+
+        <!-- Featured: Diseño Web -->
+        <div class="service-card featured reveal">
+          <div class="featured-badge">⭐ Destacado</div>
+          <div class="service-icon-wrap"><i class="fa-solid fa-laptop-code"></i></div>
+          <h3>Diseño de Páginas Web</h3>
+          <p>Creamos sitios web modernos, rápidos y optimizados que convierten visitas en ventas reales. Diseño 100% responsive y a medida de tu marca.</p>
+          <span class="service-tag">Desarrollo Web</span>
+        </div>
+
+        <!-- Featured: Publicidad -->
+        <div class="service-card featured reveal" style="transition-delay:.1s">
+          <div class="featured-badge">⭐ Destacado</div>
+          <div class="service-icon-wrap"><i class="fa-solid fa-rectangle-ad"></i></div>
+          <h3>Publicidad en Redes Sociales</h3>
+          <p>Campañas de Meta Ads, Google Ads y TikTok Ads que llegan a tu público ideal y generan resultados desde el primer día.</p>
+          <span class="service-tag">Paid Media</span>
+        </div>
+
+        <!-- Featured: Marketing Digital -->
+        <div class="service-card featured reveal" style="transition-delay:.2s">
+          <div class="featured-badge">⭐ Destacado</div>
+          <div class="service-icon-wrap"><i class="fa-solid fa-rocket"></i></div>
+          <h3>Estrategias de Marketing Digital</h3>
+          <p>Planificación estratégica 360° que integra todos los canales digitales para maximizar tu presencia y rentabilidad online.</p>
+          <span class="service-tag">Marketing 360°</span>
+        </div>
+
+        <!-- Redes Sociales -->
+        <div class="service-card reveal" style="transition-delay:.05s">
+          <div class="service-icon-wrap"><i class="fa-brands fa-instagram"></i></div>
+          <h3>Gestión de Redes Sociales</h3>
+          <p>Creación de contenido, diseño visual, calendario editorial y crecimiento orgánico de tu comunidad en Instagram, Facebook y más.</p>
+          <span class="service-tag">Social Media</span>
+        </div>
+
+        <!-- SEO -->
+        <div class="service-card reveal" style="transition-delay:.15s">
+          <div class="service-icon-wrap"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+          <h3>Posicionamiento SEO</h3>
+          <p>Aparece primero en Google. Optimizamos tu sitio web con estrategias SEO on-page y off-page para atraer tráfico orgánico sostenido.</p>
+          <span class="service-tag">SEO & SEM</span>
+        </div>
+
+        <!-- Branding -->
+        <div class="service-card reveal" style="transition-delay:.25s">
+          <div class="service-icon-wrap"><i class="fa-solid fa-palette"></i></div>
+          <h3>Branding y Diseño de Marca</h3>
+          <p>Creamos identidades de marca memorables: logotipo, manual de marca, paleta de colores y todos los elementos visuales de tu empresa.</p>
+          <span class="service-tag">Identidad Visual</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PORTFOLIO
+  ============================================================ -->
+  <section id="portfolio" class="section-pad">
+    <div class="grid-overlay"></div>
+    <div class="orb orb-purple" style="width:400px;height:400px;bottom:-100px;right:-50px;"></div>
+
+    <div class="container">
+      <div class="portfolio-header reveal">
+        <span class="section-tag"><i class="fa-solid fa-images"></i> Portafolio</span>
+        <h2 class="section-title">Proyectos que <span class="gradient-text">hablan por sí solos</span></h2>
+        <p class="sub-text" style="margin-top:16px;margin:16px auto 0">
+          Resultados reales para clientes reales. Así es como ayudamos a los negocios a crecer.
+        </p>
+      </div>
+      <div class="portfolio-filter reveal">
+        <button class="filter-btn active" data-filter="todos">Todos</button>
+        <button class="filter-btn" data-filter="diseno-web">Diseño Web</button>
+        <button class="filter-btn" data-filter="redes-sociales">Redes Sociales</button>
+        <button class="filter-btn" data-filter="seo">SEO</button>
+        <button class="filter-btn" data-filter="branding">Branding</button>
+      </div>
+      <div class="portfolio-grid">
+
+        <div class="portfolio-card reveal" data-category="diseno-web">
+          <div class="portfolio-thumb" style="background:linear-gradient(135deg,#0f172a,#1e1b4b)">
+            <div class="p-visual">🛒</div>
+            <div class="portfolio-overlay"><div class="p-overlay-icon"><i class="fa-solid fa-eye"></i></div></div>
+          </div>
+          <div class="p-body">
+            <div class="p-cat">Diseño Web · E-Commerce</div>
+            <h4>Tienda Online — FashionMex</h4>
+            <p>Sitio e-commerce con catálogo de 200+ productos y pasarela de pago integrada. +180% ventas en 3 meses.</p>
+          </div>
+        </div>
+
+        <div class="portfolio-card reveal" data-category="redes-sociales" style="transition-delay:.1s">
+          <div class="portfolio-thumb" style="background:linear-gradient(135deg,#0f172a,#164e63)">
+            <div class="p-visual">📱</div>
+            <div class="portfolio-overlay"><div class="p-overlay-icon"><i class="fa-solid fa-eye"></i></div></div>
+          </div>
+          <div class="p-body">
+            <div class="p-cat">Redes Sociales · Publicidad</div>
+            <h4>Campaña Meta Ads — RestoCDMX</h4>
+            <p>Estrategia de contenido + campaña de anuncios que triplicó las reservaciones del restaurante en 6 semanas.</p>
+          </div>
+        </div>
+
+        <div class="portfolio-card reveal" data-category="branding" style="transition-delay:.2s">
+          <div class="portfolio-thumb" style="background:linear-gradient(135deg,#0f172a,#1a0533)">
+            <div class="p-visual">🎨</div>
+            <div class="portfolio-overlay"><div class="p-overlay-icon"><i class="fa-solid fa-eye"></i></div></div>
+          </div>
+          <div class="p-body">
+            <div class="p-cat">Branding · Identidad Visual</div>
+            <h4>Marca Corporativa — Nexo Legal</h4>
+            <p>Rebranding completo para firma legal. Logo, manual de marca, papelería y plantillas digitales.</p>
+          </div>
+        </div>
+
+        <div class="portfolio-card reveal" data-category="seo" style="transition-delay:.05s">
+          <div class="portfolio-thumb" style="background:linear-gradient(135deg,#0f172a,#052e16)">
+            <div class="p-visual">📊</div>
+            <div class="portfolio-overlay"><div class="p-overlay-icon"><i class="fa-solid fa-eye"></i></div></div>
+          </div>
+          <div class="p-body">
+            <div class="p-cat">SEO · Contenido</div>
+            <h4>Posicionamiento SEO — ClínicaVida</h4>
+            <p>De la página 8 a la posición #1 en Google para 12 palabras clave en 4 meses.</p>
+          </div>
+        </div>
+
+        <div class="portfolio-card reveal" data-category="diseno-web" style="transition-delay:.15s">
+          <div class="portfolio-thumb" style="background:linear-gradient(135deg,#0f172a,#431407)">
+            <div class="p-visual">🏪</div>
+            <div class="portfolio-overlay"><div class="p-overlay-icon"><i class="fa-solid fa-eye"></i></div></div>
+          </div>
+          <div class="p-body">
+            <div class="p-cat">Diseño Web · Landing Page</div>
+            <h4>Landing Page — TechStartup MX</h4>
+            <p>Landing page de alta conversión para captación de leads. Tasa de conversión del 38% desde el día 1.</p>
+          </div>
+        </div>
+
+        <div class="portfolio-card reveal" data-category="redes-sociales" style="transition-delay:.25s">
+          <div class="portfolio-thumb" style="background:linear-gradient(135deg,#0f172a,#0c1a4d)">
+            <div class="p-visual">🌐</div>
+            <div class="portfolio-overlay"><div class="p-overlay-icon"><i class="fa-solid fa-eye"></i></div></div>
+          </div>
+          <div class="p-body">
+            <div class="p-cat">Marketing Digital · 360°</div>
+            <h4>Estrategia Digital — GymFit Pro</h4>
+            <p>Plan de marketing omnicanal que aumentó la membresía del gimnasio un 220% en el primer año.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TESTIMONIALS
+  ============================================================ -->
+  <section id="testimonials" class="section-pad">
+    <div class="grid-overlay"></div>
+    <div class="orb orb-blue" style="width:400px;height:400px;top:-50px;left:-100px;"></div>
+
+    <div class="container">
+      <div class="testimonials-header reveal">
+        <span class="section-tag"><i class="fa-solid fa-comments"></i> Testimonios</span>
+        <h2 class="section-title">Lo que dicen <span class="gradient-text">nuestros clientes</span></h2>
+      </div>
+      <div class="testimonials-grid">
+
+        <div class="testimonial-card reveal">
+          <div class="stars">★★★★★</div>
+          <div class="quote-icon">"</div>
+          <p class="testimonial-text">Nova Digital transformó por completo nuestra presencia en línea. En 3 meses duplicamos las ventas gracias a la nueva página web y la campaña de anuncios. Un equipo increíble y muy profesional.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">CM</div>
+            <div>
+              <div class="author-name">Carlos Mendoza</div>
+              <div class="author-role">CEO · FashionMex</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card reveal" style="transition-delay:.1s">
+          <div class="stars">★★★★★</div>
+          <div class="quote-icon">"</div>
+          <p class="testimonial-text">Contraté a Nova para gestionar mis redes sociales y el cambio fue inmediato. Mi restaurante comenzó a aparecer en recomendaciones y las reservaciones se triplicaron. ¡Totalmente recomendados!</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">LR</div>
+            <div>
+              <div class="author-name">Laura Ríos</div>
+              <div class="author-role">Propietaria · RestoCDMX</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card reveal" style="transition-delay:.2s">
+          <div class="stars">★★★★★</div>
+          <div class="quote-icon">"</div>
+          <p class="testimonial-text">El trabajo de branding que hicieron para mi despacho fue excepcional. Ahora tenemos una imagen corporativa que transmite confianza y profesionalismo. Muy satisfecho con los resultados.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">AG</div>
+            <div>
+              <div class="author-name">Arturo García</div>
+              <div class="author-role">Director · Nexo Legal</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card reveal" style="transition-delay:.05s">
+          <div class="stars">★★★★★</div>
+          <div class="quote-icon">"</div>
+          <p class="testimonial-text">Gracias al SEO que implementaron, mi clínica ahora aparece en los primeros resultados de Google. La cantidad de nuevos pacientes ha aumentado notablemente. Excelente inversión.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">SP</div>
+            <div>
+              <div class="author-name">Sofía Paredes</div>
+              <div class="author-role">Directora · ClínicaVida</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card reveal" style="transition-delay:.15s">
+          <div class="stars">★★★★★</div>
+          <div class="quote-icon">"</div>
+          <p class="testimonial-text">La landing page que diseñaron supera cualquier expectativa. La tasa de conversión es altísima y el diseño es simplemente impresionante. Nova es definitivamente la mejor agencia con la que hemos trabajado.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">RV</div>
+            <div>
+              <div class="author-name">Roberto Vargas</div>
+              <div class="author-role">Fundador · TechStartup MX</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card reveal" style="transition-delay:.25s">
+          <div class="stars">★★★★★</div>
+          <div class="quote-icon">"</div>
+          <p class="testimonial-text">La estrategia digital integral que Nova diseñó para mi gimnasio fue un game-changer. Más de 200 nuevos miembros en el primer año. Su equipo realmente entiende el negocio y los resultados.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">MT</div>
+            <div>
+              <div class="author-name">Miguel Torres</div>
+              <div class="author-role">Dueño · GymFit Pro</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT
+  ============================================================ -->
+  <section id="contact" class="section-pad">
+    <div class="grid-overlay"></div>
+    <div class="orb orb-purple" style="width:500px;height:500px;top:-50px;right:-100px;"></div>
+
+    <div class="container">
+      <div class="contact-grid">
+        <!-- Info -->
+        <div class="contact-info reveal">
+          <span class="section-tag"><i class="fa-solid fa-envelope"></i> Contacto</span>
+          <h2 class="section-title">Hablemos de <span class="gradient-text">tu proyecto</span></h2>
+          <p class="sub-text" style="margin-top:16px">
+            ¿Listo para llevar tu negocio al siguiente nivel? Escríbenos y con gusto te preparamos una asesoría gratuita.
+          </p>
+          <div class="contact-items">
+            <div class="contact-item">
+              <div class="contact-icon"><i class="fa-brands fa-whatsapp"></i></div>
+              <div class="contact-item-text">
+                <h4>WhatsApp</h4>
+                <a href="https://wa.me/5255782145632" target="_blank">+52 55 7821 4563</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+              <div class="contact-item-text">
+                <h4>Dirección</h4>
+                <p>Av. Reforma 350, Ciudad de México</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon"><i class="fa-solid fa-clock"></i></div>
+              <div class="contact-item-text">
+                <h4>Horarios de Atención</h4>
+                <p>Lun – Vie: 9:00 AM – 6:00 PM</p>
+                <p>Sáb: 10:00 AM – 2:00 PM</p>
+                <p>Dom: Cerrado</p>
+              </div>
+            </div>
+          </div>
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="social-link" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://wa.me/5255782145632" target="_blank" class="social-link" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="contact-form reveal" style="transition-delay:.15s">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Nombre completo</label>
+              <input type="text" id="name" placeholder="Tu nombre" />
+            </div>
+            <div class="form-group">
+              <label for="email">Correo electrónico</label>
+              <input type="email" id="email" placeholder="tu@email.com" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Teléfono / WhatsApp</label>
+              <input type="tel" id="phone" placeholder="+52 55 0000 0000" />
+            </div>
+            <div class="form-group">
+              <label for="service">Servicio de interés</label>
+              <select id="service">
+                <option value="">Selecciona un servicio</option>
+                <option>Diseño de páginas web</option>
+                <option>Gestión de redes sociales</option>
+                <option>Publicidad en redes sociales</option>
+                <option>Posicionamiento SEO</option>
+                <option>Branding y diseño de marca</option>
+                <option>Estrategia de marketing digital</option>
+                <option>Otro</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="message">Cuéntanos sobre tu proyecto</label>
+            <textarea id="message" placeholder="Describe brevemente tu negocio y qué necesitas..."></textarea>
+          </div>
+          <button class="form-submit" onclick="submitForm()">
+            <i class="fa-solid fa-paper-plane"></i> Enviar Mensaje
+          </button>
+          <p style="font-size:.8rem;color:var(--grey);text-align:center;margin-top:14px">
+            También puedes contactarnos directamente por
+            <a href="https://wa.me/5255782145632" target="_blank" style="color:var(--purple-light)">WhatsApp</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MAP
+  ============================================================ -->
+  <section id="map-section" class="section-pad" style="padding-top:0">
+    <div class="container">
+      <div class="map-header reveal">
+        <span class="section-tag"><i class="fa-solid fa-map-location-dot"></i> Ubicación</span>
+        <h2 class="section-title">Encuéntranos <span class="gradient-text">aquí</span></h2>
+      </div>
+      <div class="map-container reveal">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.9988!2d-99.1676!3d19.4270!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff35f5bd1563%3A0x6c366f0e2de02ff7!2sAv.%20Paseo%20de%20la%20Reforma%2C%20Ciudad%20de%20M%C3%A9xico!5e0!3m2!1ses!2smx!4v1699000000000!5m2!1ses!2smx"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Ubicación Nova Digital Agency - Av. Reforma 350, CDMX">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#hero" class="nav-logo">
+            <div class="logo-icon"><i class="fa-solid fa-bolt"></i></div>
+            Nova Digital
+          </a>
+          <p>Impulsamos tu negocio en el mundo digital. Diseño web, marketing digital y estrategias que generan resultados reales.</p>
+          <div class="social-links" style="margin-top:20px">
+            <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fa-brands fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Servicios</h4>
+          <ul>
+            <li><a href="#services">Diseño Web</a></li>
+            <li><a href="#services">Redes Sociales</a></li>
+            <li><a href="#services">Publicidad Digital</a></li>
+            <li><a href="#services">SEO</a></li>
+            <li><a href="#services">Branding</a></li>
+            <li><a href="#services">Marketing Digital</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="#about">Nosotros</a></li>
+            <li><a href="#portfolio">Portafolio</a></li>
+            <li><a href="#testimonials">Testimonios</a></li>
+            <li><a href="#contact">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href="https://wa.me/5255782145632" target="_blank"><i class="fa-brands fa-whatsapp"></i> +52 55 7821 4563</a></li>
+            <li><a href="#map-section"><i class="fa-solid fa-location-dot"></i> Av. Reforma 350, CDMX</a></li>
+            <li><a href="#"><i class="fa-brands fa-instagram"></i> @novadigitalagency</a></li>
+            <li><a href="#"><i class="fa-brands fa-facebook-f"></i> Nova Digital Agency</a></li>
+            <li><a href="#"><i class="fa-brands fa-linkedin-in"></i> Nova Digital Agency</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Nova Digital Agency. Todos los derechos reservados.</p>
+        <p>Hecho con ❤️ en Ciudad de México · <a href="#hero">Subir al inicio</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       WHATSAPP FLOATING BUTTON
+  ============================================================ -->
+  <div class="wa-float">
+    <div class="wa-tooltip">¿Hablamos? 💬</div>
+    <a href="https://wa.me/5255782145632" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp" style="position:relative">
+      <div class="wa-pulse"></div>
+      <div class="wa-btn"><i class="fa-brands fa-whatsapp"></i></div>
+    </a>
+  </div>
+
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+  <script>
+    /* ---------- NAVBAR SCROLL ---------- */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 30);
+    });
+
+    /* ---------- MOBILE MENU ---------- */
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    /* ---------- PORTFOLIO FILTER ---------- */
+    const filterBtns    = document.querySelectorAll('.filter-btn');
+    const portfolioCards = document.querySelectorAll('.portfolio-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', function () {
+        // Update active button
+        filterBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        const filter = this.dataset.filter;
+
+        portfolioCards.forEach(card => {
+          const matches = filter === 'todos' || card.dataset.category === filter;
+          if (matches) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    /* ---------- SCROLL REVEAL ---------- */
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            observer.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -60px 0px' }
+    );
+    reveals.forEach(el => observer.observe(el));
+
+    /* ---------- FORM SUBMIT ---------- */
+    function submitForm() {
+      const name    = document.getElementById('name').value.trim();
+      const email   = document.getElementById('email').value.trim();
+      const service = document.getElementById('service').value;
+      const message = document.getElementById('message').value.trim();
+
+      if (!name || !email) {
+        alert('Por favor completa tu nombre y correo electrónico.');
+        return;
+      }
+
+      const waText = encodeURIComponent(
+        `¡Hola! Soy ${name} y me gustaría información sobre: ${service || 'sus servicios'}.\n\n${message ? 'Mi mensaje: ' + message : ''}\n\nCorreo: ${email}`
+      );
+      window.open(`https://wa.me/5255782145632?text=${waText}`, '_blank');
+    }
+
+    /* ---------- SMOOTH ACTIVE NAV LINK ---------- */
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const scrollSpy = new IntersectionObserver(
+      entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            navLinks.forEach(a => a.classList.remove('active'));
+            const active = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+            if (active) active.style.color = 'var(--white)';
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    sections.forEach(s => scrollSpy.observe(s));
+  </script>
+</body>
+</html>
